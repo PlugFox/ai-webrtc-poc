@@ -60,9 +60,8 @@ dependencies: upgrade
 
 # Format code
 format:
-	@dart format --fix -l 80 .
-	@(dart format --fix -l 80 .)
-
+	@dart format --fix -l 120 .
+	@(dart format --fix -l 120 .)
 
 # Analyze code
 analyze: get format
@@ -72,7 +71,7 @@ analyze: get format
 check: analyze
 	@dart pub publish --dry-run
 	@dart pub global activate pana
-	@pana --json --no-warning --line-length 80 > log.pana.json
+	@pana --json --no-warning --line-length 120 > log.pana.json
 
 # Publish package
 publish:
