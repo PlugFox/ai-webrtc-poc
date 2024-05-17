@@ -8,14 +8,16 @@ import 'package:poc/src/feature/web_speech/data/platform/text_speech_stub.dart'
     // ignore: uri_does_not_exist
     if (dart.library.io) 'package:poc/src/feature/web_speech/data/platform/text_speech_vm.dart';
 import 'package:poc/src/feature/web_speech/model/text_speech_config.dart';
+import 'package:poc/src/feature/web_speech/model/text_speech_result.dart';
 
 /// WebSpeechRepository interface.
 abstract interface class IWebSpeechRepository {
-  Stream<String> startTextSpeech({TextSpeechConfig? config});
+  Stream<List<TextSpeechResult>> startTextSpeech({TextSpeechConfig? config});
 }
 
 /// WebSpeechRepository.
 class WebSpeechRepositoryImpl implements IWebSpeechRepository {
   @override
-  Stream<String> startTextSpeech({TextSpeechConfig? config}) => $startTextSpeech(config ?? const TextSpeechConfig());
+  Stream<List<TextSpeechResult>> startTextSpeech({TextSpeechConfig? config}) =>
+      $startTextSpeech(config ?? const TextSpeechConfig());
 }

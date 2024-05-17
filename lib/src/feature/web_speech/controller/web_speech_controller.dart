@@ -4,34 +4,35 @@ import 'package:control/control.dart';
 import 'package:poc/src/feature/web_speech/controller/web_speech_state.dart';
 import 'package:poc/src/feature/web_speech/data/web_speech_repository.dart';
 import 'package:poc/src/feature/web_speech/model/text_speech_config.dart';
+import 'package:poc/src/feature/web_speech/model/text_speech_result.dart';
 
 final class WebSpeechController extends StateController<WebSpeechState> with ConcurrentControllerHandler {
   WebSpeechController({required IWebSpeechRepository repository, WebSpeechState? initialState})
       : _repository = repository,
-        super(initialState: initialState ?? const WebSpeechState.idle(sentences: <String>[]));
+        super(initialState: initialState ?? const WebSpeechState.idle(sentences: <TextSpeechResult>[]));
 
   final IWebSpeechRepository _repository;
-  StreamSubscription<String>? _subscription;
+  StreamSubscription<List<TextSpeechResult>>? _subscription;
 
   void start({TextSpeechConfig? config}) => handle(() async {
         if (state.isProcessing) return;
         setState(const WebSpeechState.processing(
-          sentences: <String>[],
+          sentences: <TextSpeechResult>[],
           message: 'Recognizing',
         ));
         _subscription?.cancel().ignore();
         _subscription = _repository.startTextSpeech(config: config).listen(
-              (sentence) {
-                final sentences = <String>[...state.sentences, sentence];
+              (sentences) {
                 setState(WebSpeechState.processing(
                   sentences: sentences,
                   message: 'Recognized ${sentences.length} sentences',
                 ));
               },
-              onError: (error) {
+              // ignore: avoid_types_on_closure_parameters
+              onError: (Object error, StackTrace stackTrace) {
                 setState(WebSpeechState.error(
                   sentences: state.sentences,
-                  message: 'An error has occurred.',
+                  message: 'An error has occurred. $error',
                 ));
               },
               cancelOnError: false,

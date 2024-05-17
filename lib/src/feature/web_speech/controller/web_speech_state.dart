@@ -1,4 +1,5 @@
 import 'package:meta/meta.dart';
+import 'package:poc/src/feature/web_speech/model/text_speech_result.dart';
 
 /// {@template web_speech_state}
 /// WebSpeechState.
@@ -10,21 +11,21 @@ sealed class WebSpeechState extends _$WebSpeechStateBase {
   /// Idling state
   /// {@macro web_speech_state}
   const factory WebSpeechState.idle({
-    required List<String> sentences,
+    required List<TextSpeechResult> sentences,
     String message,
   }) = WebSpeechState$Idle;
 
   /// Processing
   /// {@macro web_speech_state}
   const factory WebSpeechState.processing({
-    required List<String> sentences,
+    required List<TextSpeechResult> sentences,
     String message,
   }) = WebSpeechState$Processing;
 
   /// An error has occurred
   /// {@macro web_speech_state}
   const factory WebSpeechState.error({
-    required List<String> sentences,
+    required List<TextSpeechResult> sentences,
     String message,
   }) = WebSpeechState$Error;
 }
@@ -53,7 +54,7 @@ abstract base class _$WebSpeechStateBase {
 
   /// Data entity payload.
   @nonVirtual
-  final List<String> sentences;
+  final List<TextSpeechResult> sentences;
 
   /// Message or state description.
   @nonVirtual
