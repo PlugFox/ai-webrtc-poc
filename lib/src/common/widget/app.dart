@@ -5,7 +5,6 @@ import 'package:webrtcaipoc/src/common/localization/localization.dart';
 import 'package:webrtcaipoc/src/common/router/router_state_mixin.dart';
 import 'package:webrtcaipoc/src/common/widget/window_scope.dart';
 import 'package:webrtcaipoc/src/feature/authentication/widget/authentication_scope.dart';
-import 'package:octopus/octopus.dart';
 
 /// {@template app}
 /// App widget.
@@ -51,12 +50,8 @@ class _AppState extends State<App> with RouterStateMixin {
           ),
           child: WindowScope(
             title: Localization.of(context).title,
-            child: OctopusTools(
-              enable: true,
-              octopus: router,
-              child: AuthenticationScope(
-                child: child ?? const SizedBox.shrink(),
-              ),
+            child: AuthenticationScope(
+              child: child ?? const SizedBox.shrink(),
             ),
           ),
         ),

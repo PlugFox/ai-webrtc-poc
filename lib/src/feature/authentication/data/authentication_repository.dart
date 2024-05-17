@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:webrtcaipoc/src/feature/authentication/model/sign_in_data.dart';
 import 'package:webrtcaipoc/src/feature/authentication/model/user.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 abstract interface class IAuthenticationRepository {
   Stream<User> userChanges();
@@ -33,7 +33,7 @@ class AuthenticationRepositoryImpl implements IAuthenticationRepository {
   Future<User> signIn(SignInData data) => Future<User>.delayed(
         const Duration(seconds: 1),
         () {
-          final user = User.authenticated(id: data.username);
+          final user = User.authenticated(username: data.username);
           _sharedPreferences.setString(_sessionKey, jsonEncode(user.toJson())).ignore();
           _userController.add(_user = user);
           return user;

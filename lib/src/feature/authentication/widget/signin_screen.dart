@@ -4,12 +4,10 @@ import 'package:control/control.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:webrtcaipoc/src/common/constant/config.dart';
-import 'package:webrtcaipoc/src/common/router/routes.dart';
 import 'package:webrtcaipoc/src/feature/authentication/controller/authentication_controller.dart';
 import 'package:webrtcaipoc/src/feature/authentication/controller/authentication_state.dart';
 import 'package:webrtcaipoc/src/feature/authentication/model/sign_in_data.dart';
 import 'package:webrtcaipoc/src/feature/authentication/widget/authentication_scope.dart';
-import 'package:octopus/octopus.dart';
 
 /// {@template signin_screen}
 /// SignInScreen widget.
@@ -24,12 +22,10 @@ class SignInScreen extends StatefulWidget {
 
 class _SignInScreenState extends State<SignInScreen> with _UsernamePasswordFormStateMixin {
   final FocusNode _usernameFocusNode = FocusNode();
-  final FocusNode _passwordFocusNode = FocusNode();
-  late final Listenable _formChangedNotifier = Listenable.merge([_usernameController, _passwordController]);
+  late final Listenable _formChangedNotifier = Listenable.merge([_usernameController]);
   final _usernameFormatters = <TextInputFormatter>[
     FilteringTextInputFormatter.allow(
-      /// Allow only letters, numbers,
-      /// and the following characters: @.-_+
+      /// Allow only letters and numbers, and some special characters
       RegExp(r'\@|[A-Z]|[a-z]|[0-9]|\.|\-|\_|\+'),
     ),
     const _UsernameTextFormatter(),
@@ -75,7 +71,7 @@ class _SignInScreenState extends State<SignInScreen> with _UsernamePasswordFormS
                                   width: 48,
                                   height: 48,
                                 ),
-                                tooltip: 'Generate password',
+                                tooltip: 'Generate username',
                                 onPressed: state.isIdling
                                     ? () {
                                         if (_obscurePassword) {
@@ -83,7 +79,7 @@ class _SignInScreenState extends State<SignInScreen> with _UsernamePasswordFormS
                                             () => _obscurePassword = false,
                                           );
                                         }
-                                        generatePassword();
+                                        generateUsername();
                                       }
                                     : null,
                               ),
@@ -112,40 +108,13 @@ class _SignInScreenState extends State<SignInScreen> with _UsernamePasswordFormS
                           prefixIcon: const Icon(Icons.person),
                         ),
                       ),
-                      const SizedBox(height: 8),
-                      TextField(
-                        focusNode: _passwordFocusNode,
-                        enabled: state.isIdling,
-                        maxLines: 1,
-                        minLines: 1,
-                        controller: _passwordController,
-                        autocorrect: false,
-                        obscureText: _obscurePassword,
-                        maxLength: Config.passwordMaxLength,
-                        autofillHints: const <String>[AutofillHints.password],
-                        keyboardType: TextInputType.visiblePassword,
-                        decoration: InputDecoration(
-                          labelText: 'Password',
-                          hintText: 'Enter your password',
-                          helperText: '',
-                          helperMaxLines: 1,
-                          errorText: _passwordError ?? state.error,
-                          errorMaxLines: 1,
-                          prefixIcon: const Icon(Icons.lock),
-                          suffixIcon: IconButton(
-                            icon: Icon(_obscurePassword ? Icons.visibility : Icons.visibility_off),
-                            onPressed: () => setState(() => _obscurePassword = !_obscurePassword),
-                          ),
-                        ),
-                      ),
                       const SizedBox(height: 32),
                       SizedBox(
                         height: 48,
                         child: AnimatedBuilder(
                           animation: _formChangedNotifier,
                           builder: (context, _) {
-                            final formFilled = _usernameController.text.length > 3 &&
-                                _passwordController.text.length >= Config.passwordMinLength;
+                            final formFilled = _usernameController.text.trim().length > 3;
                             final signInCallback = state.isIdling && formFilled ? () => signIn(context) : null;
                             final signUpCallback = state.isIdling ? () => signUp(context) : null;
                             final key =
@@ -198,13 +167,16 @@ class _SignInScreen$Buttons extends StatelessWidget {
           const SizedBox(width: 16),
           Expanded(
             flex: 1,
-            child: FilledButton.tonalIcon(
-              onPressed: signUp,
-              icon: const Icon(Icons.person_add),
-              label: const Text(
-                'Sign-Up',
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
+            child: Opacity(
+              opacity: .75,
+              child: FilledButton.tonalIcon(
+                onPressed: null, // signUp,
+                icon: const Icon(Icons.person_add),
+                label: const Text(
+                  'Sign-Up',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
             ),
           ),
@@ -224,84 +196,57 @@ class _UsernameTextFormatter extends TextInputFormatter {
 mixin _UsernamePasswordFormStateMixin on State<SignInScreen> {
   static String? _usernameValidator(String username) {
     if (username.isEmpty) return 'Username is required.';
-    final length = switch (username.length) {
-      0 => 'Password is required.',
-      < 3 => 'Must be a valid email.',
+    final length = switch (username.trim().length) {
+      0 => 'Username is required.',
+      < 3 => 'Must be a minimum of 3 characters.',
       _ => null,
     };
     if (length != null) return length;
-    if (username.split('@').where((e) => e.isNotEmpty).length != 2) {
-      return 'Must be a valid email.';
-    }
     // If username passes all checks, return null
-    return null;
-  }
-
-  static String? _passwordValidator(String password) {
-    const passwordMinLength = Config.passwordMinLength, passwordMaxLength = Config.passwordMaxLength;
-    final length = switch (password.length) {
-      0 => 'Password is required.',
-      < passwordMinLength => 'Password must be 8 characters or more.',
-      > passwordMaxLength => 'Password must be 32 characters or less.',
-      _ => null,
-    };
-    if (length != null) return length;
-    if (!password.contains(RegExp('[A-Z]'))) {
-      return 'Password must have at least one uppercase character.';
-    }
-    if (!password.contains(RegExp('[a-z]'))) {
-      return 'Password must have at least one lowercase character.';
-    }
-    // If password passes all checks, return null
     return null;
   }
 
   late final AuthenticationController _authenticationController;
   final TextEditingController _usernameController = TextEditingController(text: 'test@gmail.com');
-  final TextEditingController _passwordController = TextEditingController();
-  String? _usernameError, _passwordError;
+  String? _usernameError;
 
-  bool _validate(String username, String password) {
+  bool _validate(String username) {
     final usernameError = _usernameValidator(username);
-    final passwordError = _passwordValidator(password);
     if (mounted) {
       setState(() {
         _usernameError = usernameError;
-        _passwordError = passwordError;
       });
     }
-    return usernameError == null && passwordError == null;
+    return usernameError == null;
   }
 
   /// Signs in the user with the given username and password
   void signIn(BuildContext context) {
-    final username = _usernameController.text;
-    final password = _passwordController.text;
-    if (!_validate(username, password)) return;
+    final username = _usernameController.text.trim();
+    if (!_validate(username)) return;
     FocusScope.of(context).unfocus();
     _authenticationController.signIn(
       SignInData(
         username: username,
-        password: password,
       ),
     );
   }
 
-  /// Generates a random password
-  void generatePassword() {
+  /// Generates a random username
+  void generateUsername() {
     const lower = 'abcdefghijklmnopqrstuvwxyz';
     const upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const numbers = '0123456789';
     const chars = lower + upper + numbers;
     final rnd = math.Random();
     final length = rnd.nextInt(Config.passwordMaxLength - Config.passwordMinLength) + Config.passwordMinLength;
-    final password = <int>[
+    final text = <int>[
       lower.codeUnitAt(rnd.nextInt(lower.length)),
       upper.codeUnitAt(rnd.nextInt(upper.length)),
       numbers.codeUnitAt(rnd.nextInt(numbers.length)),
       for (var i = 0; i < length - 3; i++) chars.codeUnitAt(rnd.nextInt(chars.length)),
     ];
-    _passwordController.text = String.fromCharCodes(password..shuffle());
+    _usernameController.text = String.fromCharCodes(text..shuffle());
   }
 
   /// Opens the sign up page in the browser
@@ -309,20 +254,19 @@ mixin _UsernamePasswordFormStateMixin on State<SignInScreen> {
     FocusScope.of(context).unfocus();
     // url_launcher.launchUrlString('...').ignore();
     // context.octopus.setState((state) => state..add(Routes.signup.node()));
-    context.octopus.push(Routes.signup);
+    //context.octopus.push(Routes.signup);
   }
 
   @override
   void initState() {
     super.initState();
     _authenticationController = AuthenticationScope.controllerOf(context);
-    generatePassword();
+    generateUsername();
   }
 
   @override
   void dispose() {
     super.dispose();
     _usernameController.dispose();
-    _passwordController.dispose();
   }
 }

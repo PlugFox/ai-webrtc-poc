@@ -1,7 +1,7 @@
 import 'package:meta/meta.dart';
 
-/// User id type.
-typedef UserId = String;
+/// User username type.
+typedef Username = String;
 
 /// {@template user}
 /// The user entry model.
@@ -17,17 +17,17 @@ sealed class User with _UserPatternMatching, _UserShortcuts {
 
   /// {@macro user}
   const factory User.authenticated({
-    required UserId id,
+    required Username username,
   }) = AuthenticatedUser;
 
   /// {@macro user}
-  factory User.fromJson(Map<String, Object?> json) => switch (json['id']) {
-        UserId id => AuthenticatedUser(id: id),
+  factory User.fromJson(Map<String, Object?> json) => switch (json['username']) {
+        Username username => AuthenticatedUser(username: username),
         _ => const UnauthenticatedUser(),
       };
 
-  /// The user's id.
-  abstract final UserId? id;
+  /// The user's username.
+  abstract final Username? username;
 
   Map<String, Object?> toJson();
 }
@@ -44,7 +44,7 @@ class UnauthenticatedUser extends User {
   factory UnauthenticatedUser.fromJson(Map<String, Object?> json) => const UnauthenticatedUser();
 
   @override
-  UserId? get id => null;
+  Username? get username => null;
 
   @override
   bool get isAuthenticated => false;
@@ -54,7 +54,7 @@ class UnauthenticatedUser extends User {
         'type': 'user',
         'status': 'unauthenticated',
         'authenticated': false,
-        'id': null,
+        'username': null,
       };
 
   @override
@@ -66,15 +66,16 @@ class UnauthenticatedUser extends User {
 
   @override
   User copyWith({
-    UserId? id,
+    Username? username,
   }) =>
-      id != null ? AuthenticatedUser(id: id) : const UnauthenticatedUser();
+      username != null ? AuthenticatedUser(username: username) : const UnauthenticatedUser();
 
   @override
   int get hashCode => -1;
 
   @override
-  bool operator ==(Object other) => identical(this, other) || other is UnauthenticatedUser && id == other.id;
+  bool operator ==(Object other) =>
+      identical(this, other) || other is UnauthenticatedUser && username == other.username;
 
   @override
   String toString() => 'UnauthenticatedUser{}';
@@ -84,7 +85,7 @@ class UnauthenticatedUser extends User {
 final class AuthenticatedUser extends User {
   /// {@macro user}
   const AuthenticatedUser({
-    required this.id,
+    required this.username,
   }) : super._();
 
   /// {@macro user}
@@ -92,14 +93,14 @@ final class AuthenticatedUser extends User {
     if (json.isEmpty) throw FormatException('Json is empty', json);
     if (json
         case <String, Object?>{
-          'id': UserId id,
-        }) return AuthenticatedUser(id: id);
+          'username': Username username,
+        }) return AuthenticatedUser(username: username);
     throw FormatException('Invalid json format', json);
   }
 
   @override
   @nonVirtual
-  final UserId id;
+  final Username username;
 
   @override
   @nonVirtual
@@ -110,7 +111,7 @@ final class AuthenticatedUser extends User {
         'type': 'user',
         'status': 'authenticated',
         'authenticated': true,
-        'id': id,
+        'username': username,
       };
 
   @override
@@ -122,20 +123,20 @@ final class AuthenticatedUser extends User {
 
   @override
   AuthenticatedUser copyWith({
-    UserId? id,
+    Username? username,
   }) =>
       AuthenticatedUser(
-        id: id ?? this.id,
+        username: username ?? this.username,
       );
 
   @override
-  int get hashCode => id.hashCode;
+  int get hashCode => username.hashCode;
 
   @override
-  bool operator ==(Object other) => identical(this, other) || other is AuthenticatedUser && id == other.id;
+  bool operator ==(Object other) => identical(this, other) || other is AuthenticatedUser && username == other.username;
 
   @override
-  String toString() => 'AuthenticatedUser{id: $id}';
+  String toString() => 'AuthenticatedUser{username: $username}';
 }
 
 mixin _UserPatternMatching {
@@ -176,6 +177,6 @@ mixin _UserShortcuts on _UserPatternMatching {
 
   /// Copy with new values.
   User copyWith({
-    UserId? id,
+    Username? username,
   });
 }
