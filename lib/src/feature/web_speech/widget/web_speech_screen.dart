@@ -149,16 +149,24 @@ class _WebSpeechScreenState extends State<WebSpeechScreen> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
                               Text(collapsed ? '[${config.lang}]' : 'Language: [${config.lang}]'),
-                              Text(collapsed
-                                  ? config.continuous
-                                      ? '[V]'
-                                      : '[_]'
-                                  : 'Continuous: ${config.continuous ? '[V]' : '[_]'}'),
-                              Text(collapsed
-                                  ? config.interimResults
-                                      ? '[V]'
-                                      : '[_]'
-                                  : 'Interim: ${config.interimResults ? '[V]' : '[_]'}'),
+                              _WebSpeechConfigCheckbox(
+                                label: collapsed ? null : 'Continuous',
+                                value: config.continuous,
+                                onChanged: (value) => setState(
+                                  () => config = config.copyWith(
+                                    continuous: value ?? !config.continuous,
+                                  ),
+                                ),
+                              ),
+                              _WebSpeechConfigCheckbox(
+                                label: collapsed ? null : 'Interim',
+                                value: config.interimResults,
+                                onChanged: (value) => setState(
+                                  () => config = config.copyWith(
+                                    interimResults: value ?? !config.interimResults,
+                                  ),
+                                ),
+                              ),
                               SizedBox(
                                 width: collapsed ? 128 : 164,
                                 child: Slider(
@@ -226,4 +234,35 @@ class _WebSpeechScreenState extends State<WebSpeechScreen> {
       ),
     );
   }
+}
+
+class _WebSpeechConfigCheckbox extends StatelessWidget {
+  const _WebSpeechConfigCheckbox({
+    required this.value,
+    this.label,
+    this.onChanged,
+    super.key, // ignore: unused_element
+  });
+
+  final String? label;
+  final bool value;
+  final void Function(bool? value)? onChanged; // ignore: avoid_positional_boolean_parameters
+
+  @override
+  Widget build(BuildContext context) => Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          if (label != null)
+            Padding(
+              padding: const EdgeInsets.only(right: 4),
+              child: Text(label ?? ''),
+            ),
+          Checkbox.adaptive(
+            value: value,
+            onChanged: onChanged,
+          ),
+        ],
+      );
 }

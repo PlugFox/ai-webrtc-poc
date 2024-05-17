@@ -5,7 +5,7 @@ final class TextSpeechConfig {
   const TextSpeechConfig({
     this.lang = 'en-US',
     this.interimResults = true,
-    this.maxAlternatives = 10,
+    this.maxAlternatives = 5,
     this.continuous = true,
   }) : assert(maxAlternatives > 0, 'maxAlternatives must be greater than 0');
 

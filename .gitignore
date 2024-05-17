@@ -44,3 +44,6 @@ app.*.map.json
 
 # Coverage
 lcov.info
+
+# Firebase
+.firebase/
