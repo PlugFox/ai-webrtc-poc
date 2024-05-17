@@ -4,9 +4,9 @@ import 'dart:html' as html;
 
 import 'package:drift/drift.dart';
 import 'package:drift/wasm.dart' as wasm;
-import 'package:poc/src/common/constant/config.dart';
 import 'package:l/l.dart';
 import 'package:meta/meta.dart';
+import 'package:poc/src/common/constant/config.dart';
 
 /*
   IdbFactory.supported => WebDatabase.withStorage(await DriftWebStorage.indexedDbIfSupported(name));

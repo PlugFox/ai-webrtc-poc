@@ -1,12 +1,12 @@
 import 'package:drift_db_viewer/drift_db_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:octopus/octopus.dart';
 import 'package:poc/src/common/constant/pubspec.yaml.g.dart';
 import 'package:poc/src/common/localization/localization.dart';
 import 'package:poc/src/common/model/dependencies.dart';
 import 'package:poc/src/common/widget/scaffold_padding.dart';
 import 'package:poc/src/feature/developer/widget/logs_dialog.dart';
-import 'package:octopus/octopus.dart';
 import 'package:url_launcher/url_launcher_string.dart' as url_launcher;
 
 /// {@template developer_screen}

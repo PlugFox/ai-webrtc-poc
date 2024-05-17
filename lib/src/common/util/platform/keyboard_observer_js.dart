@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:poc/src/common/util/platform/keyboard_observer_interface.dart';
 import 'package:meta/meta.dart';
+import 'package:poc/src/common/util/platform/keyboard_observer_interface.dart';
 
 IKeyboardObserver $getKeyboardObserver() => _KeyboardObserver$JS();
 

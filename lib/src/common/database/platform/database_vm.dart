@@ -3,13 +3,13 @@ import 'dart:io' as io;
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart' as ffi;
 import 'package:flutter/foundation.dart';
-import 'package:poc/src/common/constant/config.dart';
-import 'package:poc/src/common/constant/pubspec.yaml.g.dart';
 import 'package:l/l.dart';
 import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart' as pp;
 import 'package:platform_info/platform_info.dart';
+import 'package:poc/src/common/constant/config.dart';
+import 'package:poc/src/common/constant/pubspec.yaml.g.dart';
 
 @internal
 Future<QueryExecutor> $createQueryExecutor({

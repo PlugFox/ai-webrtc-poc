@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:l/l.dart';
+import 'package:octopus/octopus.dart';
 import 'package:poc/src/common/database/database.dart' as db;
 import 'package:poc/src/common/model/dependencies.dart';
 import 'package:poc/src/common/util/date_util.dart';
-import 'package:l/l.dart';
-import 'package:octopus/octopus.dart';
 
 /// {@template logs_dialog}
 /// LogsDialog widget.

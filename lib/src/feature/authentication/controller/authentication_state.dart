@@ -1,5 +1,5 @@
-import 'package:poc/src/feature/authentication/model/user.dart';
 import 'package:meta/meta.dart';
+import 'package:poc/src/feature/authentication/model/user.dart';
 
 /// {@template authentication_state}
 /// AuthenticationState.

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:octopus/octopus.dart';
 import 'package:poc/src/common/localization/localization.dart';
 import 'package:poc/src/common/router/routes.dart';
-import 'package:octopus/octopus.dart';
 
 /// {@template developer_button}
 /// DeveloperButton widget
