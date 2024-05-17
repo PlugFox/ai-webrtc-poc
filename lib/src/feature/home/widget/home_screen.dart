@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:webrtcaipoc/src/common/widget/common_actions.dart';
+import 'package:octopus/octopus.dart';
+import 'package:poc/src/common/widget/common_actions.dart';
+import 'package:poc/src/common/widget/scaffold_padding.dart';
 
 /// {@template home_screen}
 /// HomeScreen widget.
@@ -18,7 +20,34 @@ class HomeScreen extends StatelessWidget {
             leading: const SizedBox.shrink(),
             actions: CommonActions(),
           ),
-          const SliverFillRemaining(
+          ScaffoldPadding.sliver(
+            context,
+            DefaultTextStyle(
+              style: Theme.of(context).textTheme.labelMedium!,
+              child: SliverFixedExtentList(
+                itemExtent: 92,
+                delegate: SliverChildListDelegate(
+                  <Widget>[
+                    _HomeTile(
+                      label: 'WebSpeech API',
+                      description: 'The Web Speech API provides two distinct areas '
+                          'of functionality — speech recognition, '
+                          'and speech synthesis, also known as text to speech, or tts.',
+                      onTap: () => Octopus.of(context).pushNamed('web-speech'),
+                    ),
+                    _HomeTile(
+                      label: 'WebRTC API',
+                      description: 'With WebRTC, you can add real-time communication capabilities to '
+                          'your application that works on top of an open standard. '
+                          'It supports video, voice, and generic data to be sent between peers.',
+                      onTap: () => Octopus.of(context).pushNamed('web-rtc'),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          /* const SliverFillRemaining(
             hasScrollBody: false,
             child: Center(
               child: Column(
@@ -28,7 +57,36 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-          ),
+          ), */
         ],
       ));
+}
+
+class _HomeTile extends StatelessWidget {
+  const _HomeTile({
+    required this.label,
+    this.description = '',
+    this.onTap,
+    super.key, // ignore: unused_element
+  });
+
+  final String label;
+  final String description;
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) => ListTile(
+        title: Text(
+          label,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
+        subtitle: Text(
+          description,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+        ),
+        isThreeLine: true,
+        onTap: onTap,
+      );
 }

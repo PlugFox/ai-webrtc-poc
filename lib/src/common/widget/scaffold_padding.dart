@@ -1,7 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-import 'package:webrtcaipoc/src/common/constant/config.dart';
+import 'package:poc/src/common/constant/config.dart';
 
 /// {@template scaffold_padding}
 /// ScaffoldPadding widget.

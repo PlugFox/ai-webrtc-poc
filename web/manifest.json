@@ -1,6 +1,6 @@
 {
-  "name": "webrtcaipoc",
-  "short_name": "webrtcaipoc",
+  "name": "poc",
+  "short_name": "poc",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#37474f",

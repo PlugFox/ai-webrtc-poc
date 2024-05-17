@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:webrtcaipoc/src/common/router/routes.dart';
-import 'package:webrtcaipoc/src/feature/authentication/model/user.dart';
+import 'package:poc/src/common/router/routes.dart';
+import 'package:poc/src/feature/authentication/model/user.dart';
 import 'package:octopus/octopus.dart';
 
 /// Check routes always contain the home route at the first position.

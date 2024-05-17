@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:octopus/octopus.dart';
-import 'package:webrtcaipoc/src/feature/account/widget/profile_screen.dart';
-import 'package:webrtcaipoc/src/feature/authentication/widget/signin_screen.dart';
-import 'package:webrtcaipoc/src/feature/developer/widget/developer_screen.dart';
-import 'package:webrtcaipoc/src/feature/home/widget/home_screen.dart';
-import 'package:webrtcaipoc/src/feature/settings/widget/settings_screen.dart';
+import 'package:poc/src/feature/account/widget/profile_screen.dart';
+import 'package:poc/src/feature/authentication/widget/signin_screen.dart';
+import 'package:poc/src/feature/developer/widget/developer_screen.dart';
+import 'package:poc/src/feature/home/widget/home_screen.dart';
+import 'package:poc/src/feature/settings/widget/settings_screen.dart';
+import 'package:poc/src/feature/web_speech/widget/web_speech_screen.dart';
+import 'package:poc/src/feature/webrtc/widget/webrtc_screen.dart';
 
 enum Routes with OctopusRoute {
   signin('signin', title: 'Sign-In'),
-  home('home', title: 'Octopus'),
+  home('home', title: 'Home'),
+  webSpeech('web-speech', title: 'Web Speech API'),
+  webRTC('web-rtc', title: 'Web RTC API'),
   profile('profile', title: 'Profile'),
   developer('developer', title: 'Developer'),
   //settingsDialog('settings-dialog', title: 'Settings'),
@@ -26,6 +30,8 @@ enum Routes with OctopusRoute {
   Widget builder(BuildContext context, OctopusState state, OctopusNode node) => switch (this) {
         Routes.signin => const SignInScreen(),
         Routes.home => const HomeScreen(),
+        Routes.webSpeech => const WebSpeechScreen(),
+        Routes.webRTC => const WebRTCScreen(),
         Routes.profile => const ProfileScreen(),
         Routes.developer => const DeveloperScreen(),
         Routes.settings => const SettingsScreen(),

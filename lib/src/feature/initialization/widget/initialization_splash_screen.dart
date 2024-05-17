@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:webrtcaipoc/src/common/widget/radial_progress_indicator.dart';
+import 'package:poc/src/common/widget/radial_progress_indicator.dart';
 
 class InitializationSplashScreen extends StatelessWidget {
   const InitializationSplashScreen({required this.progress, super.key});

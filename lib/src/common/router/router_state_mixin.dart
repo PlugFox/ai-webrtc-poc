@@ -1,9 +1,9 @@
 import 'package:flutter/widgets.dart' show State, StatefulWidget, ValueNotifier;
 import 'package:octopus/octopus.dart';
-import 'package:webrtcaipoc/src/common/model/dependencies.dart';
-import 'package:webrtcaipoc/src/common/router/authentication_guard.dart';
-import 'package:webrtcaipoc/src/common/router/home_guard.dart';
-import 'package:webrtcaipoc/src/common/router/routes.dart';
+import 'package:poc/src/common/model/dependencies.dart';
+import 'package:poc/src/common/router/authentication_guard.dart';
+import 'package:poc/src/common/router/home_guard.dart';
+import 'package:poc/src/common/router/routes.dart';
 
 mixin RouterStateMixin<T extends StatefulWidget> on State<T> {
   late final Octopus router;

@@ -2,11 +2,11 @@
 
 import 'package:drift/drift.dart';
 import 'package:flutter/widgets.dart' show WidgetsBindingObserver, WidgetsBinding, AppLifecycleState;
-import 'package:webrtcaipoc/src/common/constant/config.dart';
-import 'package:webrtcaipoc/src/common/database/platform/database_vm.dart'
+import 'package:poc/src/common/constant/config.dart';
+import 'package:poc/src/common/database/platform/database_vm.dart'
     // ignore: uri_does_not_exist
-    if (dart.library.html) 'package:webrtcaipoc/src/common/database/platform/database_js.dart';
-import 'package:webrtcaipoc/src/common/database/queries.dart';
+    if (dart.library.html) 'package:poc/src/common/database/platform/database_js.dart';
+import 'package:poc/src/common/database/queries.dart';
 import 'package:meta/meta.dart';
 
 export 'package:drift/drift.dart' hide DatabaseOpener;

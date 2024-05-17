@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:webrtcaipoc/src/common/widget/common_header.dart';
-import 'package:webrtcaipoc/src/common/widget/form_placeholder.dart';
-import 'package:webrtcaipoc/src/common/widget/scaffold_padding.dart';
-import 'package:webrtcaipoc/src/common/widget/shimmer.dart';
-import 'package:webrtcaipoc/src/common/widget/text_placeholder.dart';
+import 'package:poc/src/common/widget/common_header.dart';
+import 'package:poc/src/common/widget/form_placeholder.dart';
+import 'package:poc/src/common/widget/scaffold_padding.dart';
+import 'package:poc/src/common/widget/shimmer.dart';
+import 'package:poc/src/common/widget/text_placeholder.dart';
+import 'package:poc/src/feature/authentication/widget/authentication_scope.dart';
 
 /// {@template settings_screen}
 /// SettingsScreen widget.
@@ -86,11 +87,11 @@ class SettingsScreen extends StatelessWidget {
                           height: 1,
                         ),
                       ),
-                      subtitle: const Text(
-                        'John Doe',
+                      subtitle: Text(
+                        AuthenticationScope.userOf(context).username ?? 'Unknown',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
+                        style: const TextStyle(
                           height: 1,
                         ),
                       ),

@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:control/control.dart';
 import 'package:flutter/foundation.dart';
-import 'package:webrtcaipoc/src/feature/authentication/controller/authentication_state.dart';
-import 'package:webrtcaipoc/src/feature/authentication/data/authentication_repository.dart';
-import 'package:webrtcaipoc/src/feature/authentication/model/sign_in_data.dart';
-import 'package:webrtcaipoc/src/feature/authentication/model/user.dart';
+import 'package:poc/src/feature/authentication/controller/authentication_state.dart';
+import 'package:poc/src/feature/authentication/data/authentication_repository.dart';
+import 'package:poc/src/feature/authentication/model/sign_in_data.dart';
+import 'package:poc/src/feature/authentication/model/user.dart';
 
 final class AuthenticationController extends StateController<AuthenticationState> with DroppableControllerHandler {
   AuthenticationController(

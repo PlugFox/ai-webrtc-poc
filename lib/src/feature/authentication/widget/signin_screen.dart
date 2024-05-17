@@ -3,11 +3,11 @@ import 'dart:math' as math;
 import 'package:control/control.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:webrtcaipoc/src/common/constant/config.dart';
-import 'package:webrtcaipoc/src/feature/authentication/controller/authentication_controller.dart';
-import 'package:webrtcaipoc/src/feature/authentication/controller/authentication_state.dart';
-import 'package:webrtcaipoc/src/feature/authentication/model/sign_in_data.dart';
-import 'package:webrtcaipoc/src/feature/authentication/widget/authentication_scope.dart';
+import 'package:poc/src/common/constant/config.dart';
+import 'package:poc/src/feature/authentication/controller/authentication_controller.dart';
+import 'package:poc/src/feature/authentication/controller/authentication_state.dart';
+import 'package:poc/src/feature/authentication/model/sign_in_data.dart';
+import 'package:poc/src/feature/authentication/widget/authentication_scope.dart';
 
 /// {@template signin_screen}
 /// SignInScreen widget.

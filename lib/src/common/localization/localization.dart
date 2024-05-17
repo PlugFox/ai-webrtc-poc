@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:webrtcaipoc/src/common/localization/generated/l10n.dart' as generated
+import 'package:poc/src/common/localization/generated/l10n.dart' as generated
     show GeneratedLocalization, AppLocalizationDelegate;
 import 'package:meta/meta.dart';
 

@@ -1,4 +1,4 @@
-name: webrtcaipoc
+name: poc
 
 description: "Proof of concept Flutter with WebRTC Voice Recognition and AI"
 
@@ -92,6 +92,9 @@ dependencies:
   #google_fonts: ^6.1.0
   #font_awesome_flutter: ^10.6.0
   drift_db_viewer: ^2.0.0
+
+  # Web related
+  web: ^0.5.1
 
 dev_dependencies:
   # Unit & Widget tests for Flutter

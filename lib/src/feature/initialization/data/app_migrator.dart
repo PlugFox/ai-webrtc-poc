@@ -3,9 +3,9 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:webrtcaipoc/src/common/constant/config.dart';
-import 'package:webrtcaipoc/src/common/constant/pubspec.yaml.g.dart';
-import 'package:webrtcaipoc/src/common/database/database.dart';
+import 'package:poc/src/common/constant/config.dart';
+import 'package:poc/src/common/constant/pubspec.yaml.g.dart';
+import 'package:poc/src/common/database/database.dart';
 import 'package:l/l.dart';
 
 /// Migrate application when version is changed.

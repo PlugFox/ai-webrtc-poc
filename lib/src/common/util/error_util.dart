@@ -2,9 +2,9 @@
 
 import 'dart:async';
 
-import 'package:webrtcaipoc/src/common/util/platform/error_util_vm.dart'
+import 'package:poc/src/common/util/platform/error_util_vm.dart'
     // ignore: uri_does_not_exist
-    if (dart.library.html) 'package:webrtcaipoc/src/common/util/platform/error_util_js.dart';
+    if (dart.library.html) 'package:poc/src/common/util/platform/error_util_js.dart';
 import 'package:l/l.dart';
 
 /// Error util.
