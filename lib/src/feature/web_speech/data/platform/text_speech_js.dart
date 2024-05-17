@@ -43,7 +43,7 @@ Stream<List<TextSpeechResult>> $startTextSpeech(TextSpeechConfig config) {
       },
     );
     recognition
-      ..onresult = (web.SpeechSynthesisEvent event) {
+      ..onresult = (web.Event event) {
         if (controller.isClosed) return;
         try {
           controller.add(SpeechSynthesisEvent(event).toList());
@@ -61,7 +61,7 @@ Stream<List<TextSpeechResult>> $startTextSpeech(TextSpeechConfig config) {
   }
 }
 
-extension type SpeechSynthesisEvent(web.SpeechSynthesisEvent _) implements web.SpeechSynthesisEvent {
+extension type SpeechSynthesisEvent(web.Event _) implements web.Event, web.JSObject {
   external web.SpeechRecognitionResultList results;
 
   /// Convert to array of results where each result is a list of alternatives.
