@@ -1,9 +1,12 @@
+import 'package:control/control.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:web/web.dart' as web;
 import 'package:poc/src/common/widget/common_actions.dart';
 import 'package:poc/src/common/widget/not_available_screen.dart';
 import 'package:poc/src/common/widget/scaffold_padding.dart';
+import 'package:poc/src/feature/web_speech/controller/web_speech_controller.dart';
+import 'package:poc/src/feature/web_speech/controller/web_speech_state.dart';
+import 'package:poc/src/feature/web_speech/data/web_speech_repository.dart';
 
 /// {@template web_speech_screen}
 /// WebSpeechScreen widget.
@@ -40,35 +43,51 @@ class _WebSpeechForm extends StatefulWidget {
 }
 
 class _WebSpeechFormState extends State<_WebSpeechForm> {
-  late final web.SpeechRecognition recognition;
+  late final WebSpeechController controller;
 
   /* #region Lifecycle */
   @override
   void initState() {
     super.initState();
-    recognition = web.SpeechRecognition();
-  }
-
-  @override
-  void didUpdateWidget(covariant _WebSpeechForm oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    // Widget configuration changed
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    // The configuration of InheritedWidgets has changed
-    // Also called after initState but before build
+    controller = WebSpeechController(
+      repository: WebSpeechRepositoryImpl(),
+    );
   }
 
   @override
   void dispose() {
-    recognition.stop();
+    controller
+      ..stop()
+      ..dispose();
     super.dispose();
   }
   /* #endregion */
 
   @override
-  Widget build(BuildContext context) => const Placeholder();
+  Widget build(BuildContext context) => Center(
+        child: StateConsumer<WebSpeechController, WebSpeechState>(
+          controller: controller,
+          listener: (context, controller, previous, current) {
+            if (listEquals(previous.sentences, current.sentences)) return;
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Recognized ${current.sentences.length} sentences'),
+              ),
+            );
+          },
+          builder: (context, state, _) {
+            if (state.isProcessing) {
+              return IconButton(
+                icon: const Icon(Icons.stop),
+                onPressed: () => controller.stop(),
+              );
+            } else {
+              return IconButton(
+                icon: const Icon(Icons.mic),
+                onPressed: () => controller.start(),
+              );
+            }
+          },
+        ),
+      );
 }

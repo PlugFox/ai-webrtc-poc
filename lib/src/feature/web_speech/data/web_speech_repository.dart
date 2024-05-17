@@ -4,7 +4,7 @@ import 'dart:async';
 
 import 'package:poc/src/feature/web_speech/data/platform/text_speach_stub.dart'
     // ignore: uri_does_not_exist
-    if (dart.library.html) 'package:poc/src/feature/web_speech/data/platform/text_speach_js.dart'
+    if (dart.library.js_interop) 'package:poc/src/feature/web_speech/data/platform/text_speach_js.dart'
     // ignore: uri_does_not_exist
     if (dart.library.io) 'package:poc/src/feature/web_speech/data/platform/text_speach_vm.dart';
 
