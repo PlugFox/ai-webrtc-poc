@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter_template_name/src/common/model/virtual_key_codes.dart';
-import 'package:flutter_template_name/src/common/util/platform/keyboard_observer_interface.dart';
+import 'package:webrtcaipoc/src/common/model/virtual_key_codes.dart';
+import 'package:webrtcaipoc/src/common/util/platform/keyboard_observer_interface.dart';
 import 'package:meta/meta.dart';
 import 'package:win32/win32.dart' show GetKeyState; // GetAsyncKeyState, GetKeyboardState
 

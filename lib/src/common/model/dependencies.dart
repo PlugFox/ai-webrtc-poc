@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart' show BuildContext;
-import 'package:flutter_template_name/src/common/database/database.dart';
-import 'package:flutter_template_name/src/common/model/app_metadata.dart';
-import 'package:flutter_template_name/src/feature/authentication/controller/authentication_controller.dart';
-import 'package:flutter_template_name/src/feature/initialization/widget/inherited_dependencies.dart';
+import 'package:webrtcaipoc/src/common/database/database.dart';
+import 'package:webrtcaipoc/src/common/model/app_metadata.dart';
+import 'package:webrtcaipoc/src/feature/authentication/controller/authentication_controller.dart';
+import 'package:webrtcaipoc/src/feature/initialization/widget/inherited_dependencies.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// Dependencies

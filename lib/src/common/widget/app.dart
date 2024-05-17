@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_template_name/src/common/constant/config.dart';
-import 'package:flutter_template_name/src/common/localization/localization.dart';
-import 'package:flutter_template_name/src/common/router/router_state_mixin.dart';
-import 'package:flutter_template_name/src/common/widget/window_scope.dart';
-import 'package:flutter_template_name/src/feature/authentication/widget/authentication_scope.dart';
+import 'package:webrtcaipoc/src/common/constant/config.dart';
+import 'package:webrtcaipoc/src/common/localization/localization.dart';
+import 'package:webrtcaipoc/src/common/router/router_state_mixin.dart';
+import 'package:webrtcaipoc/src/common/widget/window_scope.dart';
+import 'package:webrtcaipoc/src/feature/authentication/widget/authentication_scope.dart';
 import 'package:octopus/octopus.dart';
 
 /// {@template app}

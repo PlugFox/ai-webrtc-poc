@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template_name/src/common/util/date_util.dart';
+import 'package:webrtcaipoc/src/common/util/date_util.dart';
 import 'package:intl/intl.dart';
 
 /// {@template adaptive_date_picker}

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template_name/src/feature/account/widget/profile_screen.dart';
-import 'package:flutter_template_name/src/feature/authentication/widget/signin_screen.dart';
-import 'package:flutter_template_name/src/feature/authentication/widget/signup_screen.dart';
-import 'package:flutter_template_name/src/feature/developer/widget/developer_screen.dart';
-import 'package:flutter_template_name/src/feature/home/widget/home_screen.dart';
-import 'package:flutter_template_name/src/feature/settings/widget/settings_screen.dart';
+import 'package:webrtcaipoc/src/feature/account/widget/profile_screen.dart';
+import 'package:webrtcaipoc/src/feature/authentication/widget/signin_screen.dart';
+import 'package:webrtcaipoc/src/feature/authentication/widget/signup_screen.dart';
+import 'package:webrtcaipoc/src/feature/developer/widget/developer_screen.dart';
+import 'package:webrtcaipoc/src/feature/home/widget/home_screen.dart';
+import 'package:webrtcaipoc/src/feature/settings/widget/settings_screen.dart';
 import 'package:octopus/octopus.dart';
 
 enum Routes with OctopusRoute {

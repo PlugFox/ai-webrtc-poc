@@ -1,4 +1,4 @@
-package dev.flutter.template.flutter_template_name
+package dev.plugfox.webrtcaipoc
 
 import io.flutter.embedding.android.FlutterActivity
 

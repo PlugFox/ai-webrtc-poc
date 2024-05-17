@@ -3,12 +3,12 @@ import 'dart:math' as math;
 import 'package:control/control.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_template_name/src/common/constant/config.dart';
-import 'package:flutter_template_name/src/common/router/routes.dart';
-import 'package:flutter_template_name/src/feature/authentication/controller/authentication_controller.dart';
-import 'package:flutter_template_name/src/feature/authentication/controller/authentication_state.dart';
-import 'package:flutter_template_name/src/feature/authentication/model/sign_in_data.dart';
-import 'package:flutter_template_name/src/feature/authentication/widget/authentication_scope.dart';
+import 'package:webrtcaipoc/src/common/constant/config.dart';
+import 'package:webrtcaipoc/src/common/router/routes.dart';
+import 'package:webrtcaipoc/src/feature/authentication/controller/authentication_controller.dart';
+import 'package:webrtcaipoc/src/feature/authentication/controller/authentication_state.dart';
+import 'package:webrtcaipoc/src/feature/authentication/model/sign_in_data.dart';
+import 'package:webrtcaipoc/src/feature/authentication/widget/authentication_scope.dart';
 import 'package:octopus/octopus.dart';
 
 /// {@template signin_screen}

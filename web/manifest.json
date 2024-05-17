@@ -1,11 +1,11 @@
 {
-  "name": "flutter_template_name",
-  "short_name": "flutter_template_name",
+  "name": "webrtcaipoc",
+  "short_name": "webrtcaipoc",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#37474f",
   "theme_color": "#37474f",
-  "description": "flutter_template_description",
+  "description": "Proof of concept Flutter with WebRTC Voice Recognition and AI",
   "orientation": "portrait-primary",
   "prefer_related_applications": false,
   "icons": [

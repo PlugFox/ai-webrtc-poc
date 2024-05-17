@@ -1,6 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_template_name/src/common/router/routes.dart';
+import 'package:webrtcaipoc/src/common/router/routes.dart';
 import 'package:octopus/octopus.dart';
 
 /// {@template overlay_menu}

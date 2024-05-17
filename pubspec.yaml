@@ -1,6 +1,6 @@
-name: flutter_template_name
+name: webrtcaipoc
 
-description: "flutter_template_description"
+description: "Proof of concept Flutter with WebRTC Voice Recognition and AI"
 
 publish_to: 'none'
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template_name/src/common/widget/common_actions.dart';
+import 'package:webrtcaipoc/src/common/widget/common_actions.dart';
 
 /// {@template home_screen}
 /// HomeScreen widget.

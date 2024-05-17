@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_template_name/src/common/database/database.dart' as db;
-import 'package:flutter_template_name/src/common/model/dependencies.dart';
-import 'package:flutter_template_name/src/common/util/date_util.dart';
+import 'package:webrtcaipoc/src/common/database/database.dart' as db;
+import 'package:webrtcaipoc/src/common/model/dependencies.dart';
+import 'package:webrtcaipoc/src/common/util/date_util.dart';
 import 'package:l/l.dart';
 import 'package:octopus/octopus.dart';
 

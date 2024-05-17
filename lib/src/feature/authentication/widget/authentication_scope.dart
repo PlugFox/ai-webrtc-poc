@@ -1,9 +1,9 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_template_name/src/common/model/dependencies.dart';
-import 'package:flutter_template_name/src/feature/authentication/controller/authentication_controller.dart';
-import 'package:flutter_template_name/src/feature/authentication/controller/authentication_state.dart';
-import 'package:flutter_template_name/src/feature/authentication/model/sign_in_data.dart';
-import 'package:flutter_template_name/src/feature/authentication/model/user.dart';
+import 'package:webrtcaipoc/src/common/model/dependencies.dart';
+import 'package:webrtcaipoc/src/feature/authentication/controller/authentication_controller.dart';
+import 'package:webrtcaipoc/src/feature/authentication/controller/authentication_state.dart';
+import 'package:webrtcaipoc/src/feature/authentication/model/sign_in_data.dart';
+import 'package:webrtcaipoc/src/feature/authentication/model/user.dart';
 
 /// {@template authentication_scope}
 /// AuthenticationScope widget.

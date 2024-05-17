@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template_name/src/common/widget/common_header.dart';
-import 'package:flutter_template_name/src/common/widget/form_placeholder.dart';
-import 'package:flutter_template_name/src/common/widget/scaffold_padding.dart';
-import 'package:flutter_template_name/src/common/widget/shimmer.dart';
-import 'package:flutter_template_name/src/common/widget/text_placeholder.dart';
+import 'package:webrtcaipoc/src/common/widget/common_header.dart';
+import 'package:webrtcaipoc/src/common/widget/form_placeholder.dart';
+import 'package:webrtcaipoc/src/common/widget/scaffold_padding.dart';
+import 'package:webrtcaipoc/src/common/widget/shimmer.dart';
+import 'package:webrtcaipoc/src/common/widget/text_placeholder.dart';
 
 /// {@template settings_screen}
 /// SettingsScreen widget.

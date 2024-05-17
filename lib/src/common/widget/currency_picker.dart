@@ -1,7 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-import 'package:flutter_template_name/src/common/widget/input_text_field.dart';
+import 'package:webrtcaipoc/src/common/widget/input_text_field.dart';
 import 'package:money2/money2.dart';
 
 /// {@template currency_picker}

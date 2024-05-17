@@ -4,7 +4,7 @@ import 'dart:html' as html;
 
 import 'package:drift/drift.dart';
 import 'package:drift/wasm.dart' as wasm;
-import 'package:flutter_template_name/src/common/constant/config.dart';
+import 'package:webrtcaipoc/src/common/constant/config.dart';
 import 'package:l/l.dart';
 import 'package:meta/meta.dart';
 

@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 /* import 'package:database/database.dart'; */
-import 'package:flutter_template_name/src/common/model/dependencies.dart';
-import 'package:flutter_template_name/src/common/util/error_util.dart';
-import 'package:flutter_template_name/src/feature/initialization/data/initialize_dependencies.dart';
+import 'package:webrtcaipoc/src/common/model/dependencies.dart';
+import 'package:webrtcaipoc/src/common/util/error_util.dart';
+import 'package:webrtcaipoc/src/feature/initialization/data/initialize_dependencies.dart';
 
 /// Ephemerally initializes the app and prepares it for use.
 Future<Dependencies>? _$initializeApp;

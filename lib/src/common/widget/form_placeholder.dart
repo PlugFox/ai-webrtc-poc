@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template_name/src/common/widget/shimmer.dart';
-import 'package:flutter_template_name/src/common/widget/text_placeholder.dart';
+import 'package:webrtcaipoc/src/common/widget/shimmer.dart';
+import 'package:webrtcaipoc/src/common/widget/text_placeholder.dart';
 
 /// {@template form_placeholder}
 /// FormPlaceholder widget.
