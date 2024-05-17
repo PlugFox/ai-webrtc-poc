@@ -11,13 +11,11 @@ import 'package:web/web.dart' as web;
 Stream<List<TextSpeechResult>> $startTextSpeech(TextSpeechConfig config) {
   try {
     // new (window.SpeechRecognition || window.webkitSpeechRecognition)()
-    final web.JSAny? constructor;
+    web.JSAny? constructor;
     if (web.window.has('webkitSpeechRecognition')) {
       constructor = web.window['webkitSpeechRecognition'];
     } else if (web.window.has('speechRecognition')) {
       constructor = web.window['speechRecognition'];
-    } else {
-      throw UnsupportedError('SpeechRecognition is not supported.');
     }
     if (constructor == null) {
       throw UnsupportedError('SpeechRecognition is not supported.');
