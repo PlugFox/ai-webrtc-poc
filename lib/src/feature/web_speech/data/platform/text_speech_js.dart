@@ -46,6 +46,7 @@ Stream<List<TextSpeechResult>> $startTextSpeech(TextSpeechConfig config) {
     );
     recognition
       ..onresult = (web.SpeechSynthesisEvent event) {
+        if (controller.isClosed) return;
         try {
           controller.add(SpeechSynthesisEvent(event).toList());
         } on Object catch (error, stackTrace) {
@@ -53,6 +54,7 @@ Stream<List<TextSpeechResult>> $startTextSpeech(TextSpeechConfig config) {
         }
       }.toJS
       ..onend = (web.Event _) {
+        if (controller.isClosed) return;
         controller.close();
       }.toJS;
     return controller.stream;
