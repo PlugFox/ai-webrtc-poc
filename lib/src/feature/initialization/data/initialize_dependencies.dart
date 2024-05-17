@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:control/control.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_smart_retry/dio_smart_retry.dart';
+import 'package:l/l.dart';
+import 'package:platform_info/platform_info.dart';
 import 'package:poc/src/common/constant/config.dart';
 import 'package:poc/src/common/constant/pubspec.yaml.g.dart';
 import 'package:poc/src/common/controller/controller_observer.dart';
@@ -15,10 +17,9 @@ import 'package:poc/src/common/util/log_buffer.dart';
 import 'package:poc/src/common/util/screen_util.dart';
 import 'package:poc/src/feature/authentication/controller/authentication_controller.dart';
 import 'package:poc/src/feature/authentication/data/authentication_repository.dart';
+import 'package:poc/src/feature/authentication/model/sign_in_data.dart';
 import 'package:poc/src/feature/initialization/data/app_migrator.dart';
 import 'package:poc/src/feature/initialization/data/platform/platform_initialization.dart';
-import 'package:l/l.dart';
-import 'package:platform_info/platform_info.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -133,6 +134,12 @@ final Map<String, _InitializationStep> _initializationSteps = <String, _Initiali
         ),
       ),
   'Restore last user': (dependencies) => dependencies.authenticationController.restore(),
+  'Set default user': (dependencies) {
+    if (dependencies.authenticationController.state.user.isNotAuthenticated) {
+      l.d('No user found, signing in as default user');
+      dependencies.authenticationController.signIn(const SignInData(username: 'Username'));
+    }
+  },
   'Initialize localization': (_) {},
   'Collect logs': (dependencies) async {
     await (dependencies.database.select<LogTbl, LogTblData>(dependencies.database.logTbl)
