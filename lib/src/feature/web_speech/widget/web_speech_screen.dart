@@ -69,20 +69,25 @@ class _WebSpeechFormState extends State<_WebSpeechForm> {
           controller: controller,
           listener: (context, controller, previous, current) {
             if (listEquals(previous.sentences, current.sentences)) return;
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('Recognized ${current.sentences.length} sentences'),
-              ),
-            );
+            ScaffoldMessenger.of(context)
+              ..clearSnackBars()
+              ..showSnackBar(
+                SnackBar(
+                  content: Text('Recognized ${current.sentences.length} sentences'),
+                ),
+              );
           },
           builder: (context, state, _) {
             if (state.isProcessing) {
               return IconButton(
+                iconSize: 64,
                 icon: const Icon(Icons.stop),
                 onPressed: () => controller.stop(),
               );
             } else {
               return IconButton(
+                iconSize: 64,
+                color: Colors.red,
                 icon: const Icon(Icons.mic),
                 onPressed: () => controller.start(),
               );

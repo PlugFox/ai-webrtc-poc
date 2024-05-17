@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:control/control.dart';
 import 'package:poc/src/feature/web_speech/controller/web_speech_state.dart';
 import 'package:poc/src/feature/web_speech/data/web_speech_repository.dart';
+import 'package:poc/src/feature/web_speech/model/text_speech_config.dart';
 
 final class WebSpeechController extends StateController<WebSpeechState> with ConcurrentControllerHandler {
   WebSpeechController({required IWebSpeechRepository repository, WebSpeechState? initialState})
@@ -12,14 +13,14 @@ final class WebSpeechController extends StateController<WebSpeechState> with Con
   final IWebSpeechRepository _repository;
   StreamSubscription<String>? _subscription;
 
-  void start() => handle(() async {
+  void start({TextSpeechConfig? config}) => handle(() async {
         if (state.isProcessing) return;
         setState(const WebSpeechState.processing(
           sentences: <String>[],
           message: 'Recognizing',
         ));
         _subscription?.cancel().ignore();
-        _subscription = _repository.startTextSpeach().listen(
+        _subscription = _repository.startTextSpeech(config: config).listen(
               (sentence) {
                 final sentences = <String>[...state.sentences, sentence];
                 setState(WebSpeechState.processing(
