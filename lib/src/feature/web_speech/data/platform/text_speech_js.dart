@@ -1,4 +1,4 @@
-// ignore_for_file: directives_ordering, , close_sinks, inference_failure_on_untyped_parameter, avoid_types_on_closure_parameters
+// ignore_for_file: avoid_types_on_closure_parameters
 
 import 'dart:async';
 import 'dart:js_interop' as web;
