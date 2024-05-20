@@ -1,1 +1,3 @@
-abstract interface class MediaStreamContext {}
+abstract interface class MediaStreamContext {
+  abstract final Stream<Object> subtitles;
+}

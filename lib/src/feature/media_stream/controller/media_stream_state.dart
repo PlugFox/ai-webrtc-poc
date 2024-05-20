@@ -17,14 +17,14 @@ sealed class MediaStreamState extends _$MediaStreamStateBase {
   /// Processing
   /// {@macro media_stream_state}
   const factory MediaStreamState.processing({
-    required MediaStreamContext? data,
+    required MediaStreamContext? context,
     String message,
   }) = MediaStreamState$Processing;
 
   /// An error has occurred
   /// {@macro media_stream_state}
   const factory MediaStreamState.error({
-    required MediaStreamContext? data,
+    required MediaStreamContext? context,
     String message,
   }) = MediaStreamState$Error;
 }
@@ -34,23 +34,23 @@ final class MediaStreamState$Idle extends MediaStreamState {
   const MediaStreamState$Idle({super.message = 'Idling'});
 
   @override
-  MediaStreamContext? get data => null;
+  MediaStreamContext? get context => null;
 }
 
 /// Processing
 final class MediaStreamState$Processing extends MediaStreamState {
-  const MediaStreamState$Processing({required this.data, super.message = 'Processing'});
+  const MediaStreamState$Processing({required this.context, super.message = 'Processing'});
 
   @override
-  final MediaStreamContext? data;
+  final MediaStreamContext? context;
 }
 
 /// Error
 final class MediaStreamState$Error extends MediaStreamState {
-  const MediaStreamState$Error({required this.data, super.message = 'An error has occurred.'});
+  const MediaStreamState$Error({required this.context, super.message = 'An error has occurred.'});
 
   @override
-  final MediaStreamContext? data;
+  final MediaStreamContext? context;
 }
 
 /// Pattern matching for [MediaStreamState].
@@ -60,16 +60,16 @@ typedef MediaStreamStateMatch<R, S extends MediaStreamState> = R Function(S stat
 abstract base class _$MediaStreamStateBase {
   const _$MediaStreamStateBase({required this.message});
 
-  /// Data entity payload.
+  /// Context
   @nonVirtual
-  abstract final MediaStreamContext? data;
+  abstract final MediaStreamContext? context;
 
   /// Message or state description.
   @nonVirtual
   final String message;
 
-  /// Has data?
-  bool get hasData => data != null;
+  /// Has context?
+  bool get hasContext => context != null;
 
   /// If an error has occurred?
   bool get hasError => maybeMap<bool>(orElse: () => false, error: (_) => true);
@@ -119,7 +119,7 @@ abstract base class _$MediaStreamStateBase {
       );
 
   @override
-  int get hashCode => data.hashCode;
+  int get hashCode => context.hashCode;
 
   @override
   bool operator ==(Object other) => identical(this, other);

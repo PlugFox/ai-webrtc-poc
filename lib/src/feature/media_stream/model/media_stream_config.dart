@@ -7,6 +7,6 @@ class MediaStreamConfig {
     required this.audioBufferSize,
   });
 
-  final String? url;
+  final String url;
   final int audioBufferSize;
 }
