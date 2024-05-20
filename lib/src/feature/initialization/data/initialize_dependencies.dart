@@ -92,7 +92,7 @@ final Map<String, _InitializationStep> _initializationSteps = <String, _Initiali
   'Migrate app from previous version': (dependencies) => AppMigrator.migrate(dependencies.database),
   'API Client': (dependencies) => dependencies.dio = Dio(
         BaseOptions(
-          baseUrl: Config.apiBaseUrl,
+          baseUrl: Config.mediaStreamURL,
           connectTimeout: Config.apiConnectTimeout,
           receiveTimeout: Config.apiReceiveTimeout,
           headers: <String, String>{

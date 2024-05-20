@@ -22,7 +22,7 @@ class WebSpeechScreen extends StatefulWidget {
 }
 
 class _WebSpeechScreenState extends State<WebSpeechScreen> {
-  late final WebSpeechController controller;
+  late final WebSpeechController _controller;
   late ThemeData theme;
   late TextStyle textStyle;
   TextSpeechConfig config = const TextSpeechConfig();
@@ -31,10 +31,10 @@ class _WebSpeechScreenState extends State<WebSpeechScreen> {
   @override
   void initState() {
     super.initState();
-    controller = WebSpeechController(
+    _controller = WebSpeechController(
       repository: WebSpeechRepositoryImpl(),
     );
-    controller.addListener(_onState);
+    _controller.addListener(_onState);
   }
 
   @override
@@ -46,7 +46,7 @@ class _WebSpeechScreenState extends State<WebSpeechScreen> {
 
   @override
   void dispose() {
-    controller
+    _controller
       ..stop()
       ..dispose();
     super.dispose();
@@ -54,7 +54,7 @@ class _WebSpeechScreenState extends State<WebSpeechScreen> {
   /* #endregion */
 
   void _onState() {
-    final state = controller.state;
+    final state = _controller.state;
     if (!state.hasError) return;
     if (!mounted) return;
     ScaffoldMessenger.of(context)
@@ -68,12 +68,12 @@ class _WebSpeechScreenState extends State<WebSpeechScreen> {
   }
 
   /// Start speech recognition
-  void start() => controller.start(
+  void start() => _controller.start(
         config: config,
       );
 
   /// Stop speech recognition
-  void stop() => controller.stop();
+  void stop() => _controller.stop();
 
   Widget buildSentence(TextSpeechResult result) {
     final sentence = result.alternatives.first;
@@ -135,7 +135,7 @@ class _WebSpeechScreenState extends State<WebSpeechScreen> {
                 child: LayoutBuilder(builder: (context, constraints) {
                   final collapsed = constraints.maxWidth < 600;
                   return StateConsumer<WebSpeechController, WebSpeechState>(
-                    controller: controller,
+                    controller: _controller,
                     buildWhen: (previous, current) => previous.isProcessing != current.isProcessing,
                     builder: (context, state, _) => AbsorbPointer(
                       absorbing: state.isProcessing,
@@ -195,7 +195,7 @@ class _WebSpeechScreenState extends State<WebSpeechScreen> {
             Expanded(
               child: RepaintBoundary(
                 child: StateConsumer<WebSpeechController, WebSpeechState>(
-                  controller: controller,
+                  controller: _controller,
                   builder: (context, state, _) => ListView.builder(
                     padding: ScaffoldPadding.of(context),
                     itemBuilder: (context, index) {
@@ -214,7 +214,7 @@ class _WebSpeechScreenState extends State<WebSpeechScreen> {
         ),
       ),
       floatingActionButton: StateConsumer<WebSpeechController, WebSpeechState>(
-        controller: controller,
+        controller: _controller,
         buildWhen: (previous, current) => previous.isProcessing != current.isProcessing,
         builder: (context, state, _) => state.isProcessing
             ? FloatingActionButton(

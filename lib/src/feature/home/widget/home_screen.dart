@@ -36,6 +36,14 @@ class HomeScreen extends StatelessWidget {
                       onTap: () => Octopus.of(context).pushNamed('web-speech'),
                     ),
                     _HomeTile(
+                      label: 'Media Stream',
+                      description: 'The MediaStream interface of the Media Capture and '
+                          'Streams API represents a stream of media content. '
+                          'A stream consists of several tracks, such as video or audio tracks. '
+                          'Each track is specified as an instance of MediaStreamTrack.',
+                      onTap: () => Octopus.of(context).pushNamed('media-stream'),
+                    ),
+                    _HomeTile(
                       label: 'WebRTC API',
                       description: 'With WebRTC, you can add real-time communication capabilities to '
                           'your application that works on top of an open standard. '

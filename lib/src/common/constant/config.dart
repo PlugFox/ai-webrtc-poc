@@ -60,7 +60,7 @@ abstract final class Config {
   /// Maximum screen layout width for screen with list view.
   static const int maxScreenLayoutWidth = int.fromEnvironment('MAX_LAYOUT_WIDTH', defaultValue: 768);
 
-  // --- Key storage namespace --- //
+  // --- KEY STORAGE NAMESPACE --- //
 
   /// Namespace for all version keys
   static const String storageNamespace = 'keys';
@@ -73,6 +73,16 @@ abstract final class Config {
 
   /// Keys for storing the current version of the app
   static const String versionPatchKey = '$storageNamespace.version.patch';
+
+  // --- MEDIA STREAM CONFIGURATION --- //
+
+  /// Media stream url to process media stream.
+  /// e.g. https://api.domain.tld
+  static const String mediaStreamURL = String.fromEnvironment('MEDIA_STREAM_URL', defaultValue: 'http://127.0.0.1');
+
+  /// Media stream audio buffer size.
+  static const int mediaStreamAudioBufferSize =
+      int.fromEnvironment('MEDIA_STREAM_AUDIO_BUFFER_SIZE', defaultValue: 4096);
 }
 
 /// Environment flavor.
