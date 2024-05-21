@@ -1,3 +1,3 @@
 abstract interface class MediaStreamContext {
-  abstract final Stream<Object> subtitles;
+  abstract final Stream<Map<String, Object?>> subtitles;
 }

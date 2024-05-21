@@ -54,6 +54,8 @@ class _MediaStreamScreenState extends State<MediaStreamScreen> {
   @override
   Widget build(BuildContext context) {
     if (!kIsWeb) return const NotAvailableScreen(reason: 'MediaStream is available only on web platform.');
+    final theme = Theme.of(context);
+    final textStyle = theme.textTheme.bodyLarge ?? const TextStyle();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Media Stream'),
@@ -81,7 +83,27 @@ class _MediaStreamScreenState extends State<MediaStreamScreen> {
                   child: RepaintBoundary(
                     child: StateConsumer<MediaStreamController, MediaStreamState>(
                       controller: _controller,
-                      builder: (context, state, _) => const Placeholder(),
+                      builder: (context, state, _) => ListView(
+                        children: <Widget>[
+                          Text(
+                            state.subtitles['text']?.toString() ?? '--',
+                            style: textStyle.copyWith(
+                              fontStyle: FontStyle.normal,
+                              fontWeight: FontWeight.bold,
+                              decoration: TextDecoration.none,
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                          Text(
+                            state.subtitles['partial']?.toString() ?? '--',
+                            style: textStyle.copyWith(
+                              fontStyle: FontStyle.italic,
+                              fontWeight: FontWeight.normal,
+                              decoration: TextDecoration.none,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

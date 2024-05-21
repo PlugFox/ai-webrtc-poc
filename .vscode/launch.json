@@ -23,13 +23,28 @@
       "env": {}
     },
     {
-      "name": "[debug] App (Memmory database)",
+      "name": "[debug] App (Memory database)",
       "type": "dart",
       "request": "launch",
       "cwd": "${workspaceFolder}",
       "args": [
         "--dart-define-from-file=config/development.json",
         "--dart-define=IN_MEMORY_DATABASE=true"
+      ],
+      "env": {}
+    },
+    {
+      "name": "[debug] Web Server (HTML, Memory database)",
+      "type": "dart",
+      "request": "launch",
+      "flutterMode": "debug",
+      "cwd": "${workspaceFolder}",
+      "args": [
+        "--dart-define-from-file=config/development.json",
+        "--dart-define=IN_MEMORY_DATABASE=true",
+        "--device-id=web-server",
+        "--web-port=3000",
+        "--web-renderer=html",
       ],
       "env": {}
     },

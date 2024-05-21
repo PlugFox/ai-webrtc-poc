@@ -11,6 +11,7 @@ sealed class MediaStreamState extends _$MediaStreamStateBase {
   /// Idling state
   /// {@macro media_stream_state}
   const factory MediaStreamState.idle({
+    required Map<String, Object?> subtitles,
     String message,
   }) = MediaStreamState$Idle;
 
@@ -18,6 +19,7 @@ sealed class MediaStreamState extends _$MediaStreamStateBase {
   /// {@macro media_stream_state}
   const factory MediaStreamState.processing({
     required MediaStreamContext? context,
+    required Map<String, Object?> subtitles,
     String message,
   }) = MediaStreamState$Processing;
 
@@ -25,32 +27,53 @@ sealed class MediaStreamState extends _$MediaStreamStateBase {
   /// {@macro media_stream_state}
   const factory MediaStreamState.error({
     required MediaStreamContext? context,
+    required Map<String, Object?> subtitles,
     String message,
   }) = MediaStreamState$Error;
 }
 
 /// Idling state
 final class MediaStreamState$Idle extends MediaStreamState {
-  const MediaStreamState$Idle({super.message = 'Idling'});
+  const MediaStreamState$Idle({
+    required this.subtitles,
+    super.message = 'Idling',
+  });
 
   @override
   MediaStreamContext? get context => null;
+
+  @override
+  final Map<String, Object?> subtitles;
 }
 
 /// Processing
 final class MediaStreamState$Processing extends MediaStreamState {
-  const MediaStreamState$Processing({required this.context, super.message = 'Processing'});
+  const MediaStreamState$Processing({
+    required this.context,
+    required this.subtitles,
+    super.message = 'Processing',
+  });
 
   @override
   final MediaStreamContext? context;
+
+  @override
+  final Map<String, Object?> subtitles;
 }
 
 /// Error
 final class MediaStreamState$Error extends MediaStreamState {
-  const MediaStreamState$Error({required this.context, super.message = 'An error has occurred.'});
+  const MediaStreamState$Error({
+    required this.context,
+    required this.subtitles,
+    super.message = 'An error has occurred.',
+  });
 
   @override
   final MediaStreamContext? context;
+
+  @override
+  final Map<String, Object?> subtitles;
 }
 
 /// Pattern matching for [MediaStreamState].
@@ -63,6 +86,9 @@ abstract base class _$MediaStreamStateBase {
   /// Context
   @nonVirtual
   abstract final MediaStreamContext? context;
+
+  /// Subtitles
+  abstract final Map<String, Object?> subtitles;
 
   /// Message or state description.
   @nonVirtual

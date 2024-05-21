@@ -9,7 +9,7 @@ import 'package:poc/src/feature/media_stream/model/media_stream_context.dart';
 final class MediaStreamController extends StateController<MediaStreamState> with ConcurrentControllerHandler {
   MediaStreamController({required IMediaStreamRepository repository, MediaStreamState? initialState})
       : _repository = repository,
-        super(initialState: initialState ?? const MediaStreamState.idle());
+        super(initialState: initialState ?? const MediaStreamState.idle(subtitles: <String, Object?>{}));
 
   final IMediaStreamRepository _repository;
 
@@ -17,24 +17,28 @@ final class MediaStreamController extends StateController<MediaStreamState> with
         if (state.isProcessing) return;
         setState(MediaStreamState.processing(
           context: state.context,
+          subtitles: <String, Object?>{...state.subtitles},
           message: 'Preparing to start media stream',
         ));
         try {
           final context = await _repository.startMediaStream(config);
           setState(MediaStreamState.processing(
             context: context,
+            subtitles: <String, Object?>{...state.subtitles},
             message: 'Processing',
           ));
           context.subtitles.listen(
             (subtitles) {
               setState(MediaStreamState.processing(
                 context: context,
+                subtitles: <String, Object?>{...state.subtitles, ...subtitles},
                 message: 'Processing',
               ));
             },
             onError: (Object error, StackTrace stackTrace) {
               setState(MediaStreamState.error(
                 context: context,
+                subtitles: <String, Object?>{...state.subtitles},
                 message: 'An error has occurred. $error',
               ));
               stop();
@@ -44,9 +48,12 @@ final class MediaStreamController extends StateController<MediaStreamState> with
         } on Object catch (error, _) {
           setState(MediaStreamState.error(
             context: state.context,
+            subtitles: <String, Object?>{...state.subtitles},
             message: 'An error has occurred. $error',
           ));
-          setState(const MediaStreamState.idle());
+          setState(MediaStreamState.idle(
+            subtitles: <String, Object?>{...state.subtitles},
+          ));
           rethrow;
         }
       });
@@ -54,6 +61,8 @@ final class MediaStreamController extends StateController<MediaStreamState> with
   void stop() => handle(() async {
         if (state.context case MediaStreamContext? context when context != null)
           await _repository.stopMediaStream(context);
-        setState(const MediaStreamState.idle());
+        setState(MediaStreamState.idle(
+          subtitles: <String, Object?>{...state.subtitles},
+        ));
       });
 }

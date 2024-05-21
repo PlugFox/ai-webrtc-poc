@@ -1,7 +1,9 @@
-// ignore_for_file: avoid_types_on_closure_parameters, avoid_print
+// ignore_for_file: avoid_types_on_closure_parameters, avoid_print, unnecessary_lambdas, unused_catch_stack
 
 import 'dart:async';
-import 'dart:js_interop' as web;
+import 'dart:convert';
+import 'dart:js_interop' as js;
+import 'dart:js_interop_unsafe' as unsafe; // ignore: unused_import
 
 import 'package:poc/src/feature/media_stream/model/media_stream_config.dart';
 import 'package:poc/src/feature/media_stream/model/media_stream_context.dart';
@@ -34,7 +36,7 @@ Future<MediaStreamContext> $startMediaStream(MediaStreamConfig config) async {
         await _setupAudioContext(mediaStream);
 
     // Create subtitles controller
-    final subtitlesController = StreamController<Object>();
+    final subtitlesController = StreamController<Map<String, Object?>>();
     final wsCompleter = Completer<void>();
     Timer? heartbeatTimer;
     final socket = web.WebSocket(config.url);
@@ -50,16 +52,28 @@ Future<MediaStreamContext> $startMediaStream(MediaStreamConfig config) async {
       ..addEventListener(
           'open',
           (web.Event event) {
-            print('WebSocket connected');
+            //print('WebSocket connected');
             if (!wsCompleter.isCompleted) wsCompleter.complete();
           }.toJS)
       ..addEventListener(
           'message',
           (web.MessageEvent event) {
             // https://developer.mozilla.org/en-US/docs/Web/API/WebSocket/message_event
-            //final data = event.data;
-            // TODO(plugfox): decode subtitles
-            subtitlesController.add(event.data ?? <int>[]);
+            try {
+              final String data;
+              switch (event.data) {
+                case String text:
+                  data = text;
+                case List<int> bytes:
+                  data = utf8.decode(bytes);
+                default:
+                  //print('Unknown data type: ${event.data.runtimeType}');
+                  data = event.data.toString();
+              }
+              subtitlesController.add(jsonDecode(data) as Map<String, Object?>);
+            } on Object catch (error, stackTrace) {
+              print('Error decoding subtitles: $error');
+            }
           }.toJS)
       ..addEventListener(
           'close',
@@ -80,11 +94,12 @@ Future<MediaStreamContext> $startMediaStream(MediaStreamConfig config) async {
     audioWorkletNode.port.onmessage = (web.MessageEvent event) {
       final audioData = event.data;
       if (audioData is! web.Float32List) return;
+      final buffer = audioData.getProperty('buffer'.toJS);
+      if (buffer == null) return;
       //print('Audio data ${audioData.runtimeType}: $audioData');
-      if (socket.readyState == web.WebSocket.OPEN) socket.send(audioData);
+      if (socket.readyState == web.WebSocket.OPEN) socket.send(buffer);
     }.toJS;
 
-    //_setupWebSocket(audioWorkletNode);
     return _MediaStreamContext$JS(
       mediaStream: mediaStream,
       audioContext: audioContext,
@@ -123,7 +138,7 @@ Future<web.MediaStream> _getMicrophoneAccess() async {
       /* video: config.video.toJS, audio: config.audio.toJS */
     ),
     (web.MediaStream stream) {
-      print('Media stream started: $stream');
+      //print('Media stream started: $stream');
       completer.complete(stream);
     }.toJS,
     (web.DOMException error) {
@@ -135,7 +150,12 @@ Future<web.MediaStream> _getMicrophoneAccess() async {
 
 Future<({web.AudioContext context, web.AudioWorkletNode worklet})> _setupAudioContext(web.MediaStream stream) async {
   //const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-  final audioContext = web.AudioContext();
+  final audioContext = web.AudioContext(
+    web.AudioContextOptions(
+      latencyHint: 'interactive'.toJS,
+      sampleRate: 16000,
+    ),
+  );
 
   /* const processorCode = '''
     class AudioProcessor extends AudioWorkletProcessor {
@@ -192,5 +212,5 @@ class _MediaStreamContext$JS implements MediaStreamContext {
   final web.WebSocket _webSocket;
 
   @override
-  final Stream<Object> subtitles;
+  final Stream<Map<String, Object?>> subtitles;
 }

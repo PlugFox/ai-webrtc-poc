@@ -47,3 +47,10 @@ lcov.info
 
 # Firebase
 .firebase/
+
+# Model
+*.bin
+vosk-model/
+
+# Files
+*.wav
