@@ -1,6 +1,7 @@
 import 'package:control/control.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:poc/src/common/constant/config.dart';
 import 'package:poc/src/common/widget/common_actions.dart';
 import 'package:poc/src/common/widget/not_available_screen.dart';
@@ -25,6 +26,16 @@ class MediaStreamScreen extends StatefulWidget {
 
 class _MediaStreamScreenState extends State<MediaStreamScreen> {
   late final MediaStreamController _controller;
+  late final TextEditingController _urlController = TextEditingController(text: Config.mediaStreamURL);
+  late final TextEditingController _sampleRateController =
+      TextEditingController(text: Config.mediaStreamSampleRate.toString());
+  late final TextEditingController _audioBufferSizeController =
+      TextEditingController(text: Config.mediaStreamAudioBufferSize.toString());
+  MediaStreamConfig _config = const MediaStreamConfig(
+    url: Config.mediaStreamURL,
+    audioBufferSize: Config.mediaStreamAudioBufferSize,
+    sampleRate: Config.mediaStreamSampleRate,
+  );
 
   @override
   void initState() {
@@ -32,20 +43,28 @@ class _MediaStreamScreenState extends State<MediaStreamScreen> {
     _controller = MediaStreamController(
       repository: MediaStreamRepositoryImpl(),
     );
+    _urlController.addListener(_changeConfig);
+    _sampleRateController.addListener(_changeConfig);
+    _audioBufferSizeController.addListener(_changeConfig);
   }
 
   /// Start media stream
-  void start() => _controller.start(const MediaStreamConfig(
-        url: Config.mediaStreamURL,
-        audioBufferSize: Config.mediaStreamAudioBufferSize,
-        sampleRate: Config.mediaStreamSampleRate,
-      ));
+  void start() => _controller.start(_config);
 
   /// Stop media stream
   void stop() => _controller.stop();
 
+  void _changeConfig() => _config = _config.copyWith(
+        url: _urlController.text.isEmpty ? Config.mediaStreamURL : _urlController.text.trim(),
+        audioBufferSize: int.tryParse(_audioBufferSizeController.text) ?? Config.mediaStreamAudioBufferSize,
+        sampleRate: int.tryParse(_sampleRateController.text) ?? Config.mediaStreamSampleRate,
+      );
+
   @override
   void dispose() {
+    _urlController.dispose();
+    _sampleRateController.dispose();
+    _audioBufferSizeController.dispose();
     _controller
       ..stop()
       ..dispose();
@@ -70,9 +89,77 @@ class _MediaStreamScreenState extends State<MediaStreamScreen> {
           children: <Widget>[
             ScaffoldPadding.widget(
               context,
-              const SizedBox(
-                height: 48,
-                child: Placeholder(),
+              SizedBox(
+                height: 72,
+                child: StateConsumer<MediaStreamController, MediaStreamState>(
+                  controller: _controller,
+                  buildWhen: (previous, current) => previous.isProcessing != current.isProcessing,
+                  builder: (context, state, _) => AbsorbPointer(
+                    absorbing: state.isProcessing,
+                    child: AnimatedOpacity(
+                      duration: const Duration(milliseconds: 500),
+                      opacity: state.isProcessing ? .5 : 1,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Expanded(
+                            flex: 2,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 8),
+                              child: TextField(
+                                controller: _urlController,
+                                readOnly: state.isProcessing,
+                                enabled: !state.isProcessing,
+                                keyboardType: TextInputType.url,
+                                autofillHints: const <String>[AutofillHints.url],
+                                decoration: const InputDecoration(
+                                  labelText: 'URL',
+                                  hintText: 'Enter URL',
+                                ),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 8),
+                              child: TextField(
+                                controller: _sampleRateController,
+                                readOnly: state.isProcessing,
+                                enabled: !state.isProcessing,
+                                keyboardType: TextInputType.number,
+                                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                                decoration: const InputDecoration(
+                                  labelText: 'Sample Rate',
+                                  hintText: 'Enter Sample Rate',
+                                ),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 8),
+                              child: TextField(
+                                controller: _audioBufferSizeController,
+                                readOnly: state.isProcessing,
+                                enabled: !state.isProcessing,
+                                keyboardType: TextInputType.number,
+                                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                                decoration: const InputDecoration(
+                                  labelText: 'Audio Buffer Size',
+                                  hintText: 'Enter Audio Buffer Size',
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ),
             const Divider(height: 16, thickness: 1),
