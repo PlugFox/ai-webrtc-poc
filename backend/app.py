@@ -1,3 +1,11 @@
+# Voice Recognition server using Vosk and WebSockets
+#
+# To make it work:
+# 1) Download vosk-model-en-us-0.22 from https://alphacephei.com/vosk/models
+# 2) Unpack it as vosk-model to app.py directory
+# 3) Run pip install websockets vosk numpy
+# 4) And start with python app.py
+
 import asyncio
 import websockets
 import numpy as np
