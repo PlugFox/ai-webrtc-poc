@@ -29,11 +29,11 @@ Future<MediaStreamContext> $startMediaStream(MediaStreamConfig config) async {
   web.MediaStream? mediaStream;
   try {
     // Get microphone access
-    mediaStream = await _getMicrophoneAccess();
+    mediaStream = await _getMicrophoneAccess(config);
 
     // Setup audio context
     final (context: web.AudioContext audioContext, worklet: web.AudioWorkletNode audioWorkletNode) =
-        await _setupAudioContext(mediaStream);
+        await _setupAudioContext(config, mediaStream);
 
     // Create subtitles controller
     final subtitlesController = StreamController<Map<String, Object?>>();
@@ -53,6 +53,15 @@ Future<MediaStreamContext> $startMediaStream(MediaStreamConfig config) async {
           'open',
           (web.Event event) {
             //print('WebSocket connected');
+            /* socket.add(utf8
+                .encode(
+                  jsonEncode(
+                    <String, Object?>{
+                      'config': config.toJson(),
+                    },
+                  ),
+                )
+                .toJS); */
             if (!wsCompleter.isCompleted) wsCompleter.complete();
           }.toJS)
       ..addEventListener(
@@ -114,7 +123,7 @@ Future<MediaStreamContext> $startMediaStream(MediaStreamConfig config) async {
   }
 }
 
-Future<web.MediaStream> _getMicrophoneAccess() async {
+Future<web.MediaStream> _getMicrophoneAccess(MediaStreamConfig config) async {
   /* // new (window.AudioContext || window.webkitSpeechRecognition)()
   web.JSAny? constructor;
   if (web.window.has('webkitSpeechRecognition')) {
@@ -148,12 +157,13 @@ Future<web.MediaStream> _getMicrophoneAccess() async {
   return await completer.future;
 }
 
-Future<({web.AudioContext context, web.AudioWorkletNode worklet})> _setupAudioContext(web.MediaStream stream) async {
+Future<({web.AudioContext context, web.AudioWorkletNode worklet})> _setupAudioContext(
+    MediaStreamConfig config, web.MediaStream stream) async {
   //const audioContext = new (window.AudioContext || window.webkitAudioContext)();
   final audioContext = web.AudioContext(
     web.AudioContextOptions(
       latencyHint: 'interactive'.toJS,
-      sampleRate: 16000,
+      sampleRate: config.sampleRate,
     ),
   );
 

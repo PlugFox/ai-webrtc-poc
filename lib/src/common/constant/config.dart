@@ -83,6 +83,10 @@ abstract final class Config {
   /// Media stream audio buffer size.
   static const int mediaStreamAudioBufferSize =
       int.fromEnvironment('MEDIA_STREAM_AUDIO_BUFFER_SIZE', defaultValue: 4096);
+
+  /// Media stream sample rate.
+  /// e.g. 16000 or 44100
+  static const int mediaStreamSampleRate = int.fromEnvironment('MEDIA_STREAM_SAMPLE_RATE', defaultValue: 44100);
 }
 
 /// Environment flavor.

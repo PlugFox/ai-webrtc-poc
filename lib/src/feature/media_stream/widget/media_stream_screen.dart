@@ -38,6 +38,7 @@ class _MediaStreamScreenState extends State<MediaStreamScreen> {
   void start() => _controller.start(const MediaStreamConfig(
         url: Config.mediaStreamURL,
         audioBufferSize: Config.mediaStreamAudioBufferSize,
+        sampleRate: Config.mediaStreamSampleRate,
       ));
 
   /// Stop media stream

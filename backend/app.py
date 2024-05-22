@@ -6,22 +6,26 @@ import wave
 import uuid
 from datetime import datetime
 
+#SAMPLE_RATE = 16000  # Sample rate of 16000 Hz
+SAMPLE_RATE = 44100  # Sample rate of 44100 Hz
+
+# Buffer threshold for accumulating data (e.g., 1 second of data)
+BUFFER_THRESHOLD = SAMPLE_RATE * 1 # 1 second of data at a sample rate of 44100 Hz
+
 # Path to the unpacked Vosk model directory
 # Downloaded from https://alphacephei.com/vosk/models and unpacked
 # e.g. vosk-model-en-us-0.22
 model_path = "vosk-model"
 model = Model(model_path)
-recognizer = KaldiRecognizer(model, 16000)  # Sample rate of 16000 Hz
+recognizer = KaldiRecognizer(model, SAMPLE_RATE)  # Sample rate of 44100 Hz
 
-# Buffer threshold for accumulating data (e.g., 1 second of data)
-BUFFER_THRESHOLD = 16000  # 1 second of data at a sample rate of 16000 Hz
 
 # Function to write audio data to a file
-def write_wave_file(filename, data, sample_rate):
+def write_wave_file(filename, data, frame_rate):
     with wave.open(filename, 'wb') as wf:
         wf.setnchannels(1)  # mono
         wf.setsampwidth(2)  # 16-bit
-        wf.setframerate(sample_rate)
+        wf.setframerate(frame_rate)
         wf.writeframes(data)
 
 async def recognize_audio(websocket, path):
@@ -63,7 +67,7 @@ async def recognize_audio(websocket, path):
             break
 
     # Save audio data to a file after the connection is closed
-    write_wave_file(unique_filename, raw_audio_data, 16000)
+    write_wave_file(unique_filename, raw_audio_data, SAMPLE_RATE)
     print(f"Audio data saved to {unique_filename}")
 
 # Start the WebSocket server on port 8080
