@@ -46,6 +46,7 @@ class _MediaStreamScreenState extends State<MediaStreamScreen> {
     _urlController.addListener(_changeConfig);
     _sampleRateController.addListener(_changeConfig);
     _audioBufferSizeController.addListener(_changeConfig);
+    _controller.addListener(_onState);
   }
 
   /// Start media stream
@@ -59,6 +60,20 @@ class _MediaStreamScreenState extends State<MediaStreamScreen> {
         audioBufferSize: int.tryParse(_audioBufferSizeController.text) ?? Config.mediaStreamAudioBufferSize,
         sampleRate: int.tryParse(_sampleRateController.text) ?? Config.mediaStreamSampleRate,
       );
+
+  void _onState() {
+    final state = _controller.state;
+    if (!state.hasError) return;
+    if (!mounted) return;
+    ScaffoldMessenger.of(context)
+      ..clearSnackBars()
+      ..showSnackBar(
+        SnackBar(
+          content: Text(state.message),
+          backgroundColor: Colors.red,
+        ),
+      );
+  }
 
   @override
   void dispose() {
