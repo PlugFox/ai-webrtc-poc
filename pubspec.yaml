@@ -73,7 +73,7 @@ dependencies:
 
   # Desktop
   win32: ^5.4.0
-  window_manager: ^0.3.8
+  window_manager: ^0.3.9
 
   # State management
   control: ^0.1.0
