@@ -135,8 +135,8 @@ extension type SpeechRecognition._(web.JSObject _) implements web.EventTarget, w
   /// to return a
   /// [SpeechRecognitionResult].
   external void abort();
-  external set grammars(web.SpeechGrammarList value);
-  external web.SpeechGrammarList get grammars;
+  /* external set grammars(web.SpeechGrammarList value);
+  external web.SpeechGrammarList get grammars; */
   external set lang(String value);
   external String get lang;
   external set continuous(bool value);

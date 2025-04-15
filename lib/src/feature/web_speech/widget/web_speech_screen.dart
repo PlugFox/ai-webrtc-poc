@@ -240,8 +240,7 @@ class _WebSpeechConfigCheckbox extends StatelessWidget {
   const _WebSpeechConfigCheckbox({
     required this.value,
     this.label,
-    this.onChanged,
-    super.key, // ignore: unused_element
+    this.onChanged, // ignore: unused_element
   });
 
   final String? label;

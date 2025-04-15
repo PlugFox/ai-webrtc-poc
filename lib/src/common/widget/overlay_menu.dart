@@ -99,8 +99,7 @@ mixin _PanelController on State<OverlayMenu>, SingleTickerProviderStateMixin<Ove
 class _InheritedOverlayMenu extends InheritedWidget {
   const _InheritedOverlayMenu({
     required this.scope,
-    required super.child,
-    super.key, // ignore: unused_element
+    required super.child, // ignore: unused_element
   });
 
   final _OverlayMenuState scope;
@@ -137,9 +136,7 @@ class _OverlayMenuFlowDelegate extends FlowDelegate {
 }
 
 class _MenuRail extends StatelessWidget {
-  const _MenuRail({
-    super.key, // ignore: unused_element
-  });
+  const _MenuRail();
 
   static final List<({String name, NavigationRailDestination destination})> _destinations = [
     (

@@ -74,8 +74,7 @@ class _HomeTile extends StatelessWidget {
   const _HomeTile({
     required this.label,
     this.description = '',
-    this.onTap,
-    super.key, // ignore: unused_element
+    this.onTap, // ignore: unused_element
   });
 
   final String label;

@@ -2,7 +2,7 @@ name: poc
 
 description: "Proof of concept Flutter with WebRTC Voice Recognition and AI"
 
-publish_to: 'none'
+publish_to: "none"
 
 version: 0.0.1+1
 
@@ -34,7 +34,7 @@ version: 0.0.1+1
 #    path: screenshot_1.png
 
 environment:
-  sdk: '>=3.3.3 <4.0.0'
+  sdk: ">=3.3.3 <4.0.0"
   flutter: ">=3.19.5"
 
 dependencies:
@@ -50,7 +50,7 @@ dependencies:
   intl: any
 
   # Routing
-  octopus: ^0.0.8
+  octopus: ^0.0.9
 
   # Annotation
   meta: any
@@ -94,7 +94,7 @@ dependencies:
   drift_db_viewer: ^2.0.0
 
   # Web related
-  web: ^0.5.1
+  web: ^1.1.1
 
 dev_dependencies:
   # Unit & Widget tests for Flutter
@@ -117,7 +117,6 @@ dev_dependencies:
   flutter_launcher_icons: ^0.13.1
   # dart run flutter_native_splash:create --path=flutter_native_splash.yaml
   flutter_native_splash: ^2.4.0
-
 
 flutter:
   generate: true

@@ -140,7 +140,7 @@ Future<web.MediaStream> _getMicrophoneAccess(MediaStreamConfig config) async {
 
   // Request media stream
   final completer = Completer<web.MediaStream>();
-  web.window.navigator.getUserMedia(
+  /* web.window.navigator.getUserMedia(
     web.MediaStreamConstraints(
       audio: true.toJS,
       video: false.toJS,
@@ -153,7 +153,7 @@ Future<web.MediaStream> _getMicrophoneAccess(MediaStreamConfig config) async {
     (web.DOMException error) {
       completer.completeError('Error accessing microphone: ${error.message}');
     }.toJS,
-  );
+  ); */
   return await completer.future;
 }
 

@@ -465,8 +465,7 @@ class _OpenUriTile extends StatelessWidget {
   const _OpenUriTile({
     required this.title,
     required this.description,
-    this.uri,
-    super.key, // ignore: unused_element
+    this.uri, // ignore: unused_element
   });
 
   final String title;

@@ -67,8 +67,7 @@ class _HistoryButtonState extends State<HistoryButton> {
 
 class _HistorySearchWidget extends StatefulWidget {
   const _HistorySearchWidget({
-    required this.controller,
-    super.key, // ignore: unused_element
+    required this.controller, // ignore: unused_element
   });
 
   final OverlayPortalController controller;

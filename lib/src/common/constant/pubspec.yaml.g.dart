@@ -14,7 +14,7 @@ library pubspec;
 
   MIT License
 
-  Copyright (c) 2024 Plague Fox
+  Copyright (c) 2025 Plague Fox
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -123,14 +123,14 @@ sealed class Pubspec {
 
   /// Build date and time (UTC)
   static final DateTime timestamp = DateTime.utc(
-    2024,
-    5,
-    17,
-    8,
-    40,
-    46,
+    2025,
+    4,
+    15,
+    16,
+    49,
+    19,
     114,
-    423,
+    673,
   );
 
   /// Name
@@ -348,8 +348,8 @@ sealed class Pubspec {
 
   /// Environment
   static const Map<String, String> environment = <String, String>{
-    'sdk': '>=3.3.0 <4.0.0',
-    'flutter': '>=3.3.0 <4.0.0',
+    'sdk': '>=3.3.3 <4.0.0',
+    'flutter': '>=3.3.3 <4.0.0',
   };
 
   /// Platforms
@@ -416,7 +416,7 @@ sealed class Pubspec {
       'sdk': r'flutter',
     },
     'intl': r'any',
-    'octopus': r'^0.0.8',
+    'octopus': r'^0.0.9',
     'meta': r'any',
     'json_annotation': r'^4.8.1',
     'collection': r'any',
@@ -439,6 +439,7 @@ sealed class Pubspec {
     'dio_smart_retry': r'^6.0.0',
     'cupertino_icons': r'^1.0.5',
     'drift_db_viewer': r'^2.0.0',
+    'web': r'^1.0.0',
   };
 
   /// Developer dependencies
@@ -534,4 +535,5 @@ sealed class Pubspec {
       'line_length': 120,
     },
   };
+
 }
